@@ -1,16 +1,11 @@
 import React, {Component} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { Container } from '@material-ui/core';
 import {connect} from 'react-redux';
-import { Redirect } from 'react-router';
 import { withRouter } from 'react-router-dom';
+import AddIcon from '@material-ui/icons/Add';
 
 class AddEvent extends Component {
 
@@ -71,7 +66,7 @@ class AddEvent extends Component {
                       <Input value={this.state.description} onChange={this.descriptionHandler} style={ {minWidth: 300}} placeholder="Enter Description"/>
                     </Grid><br></br>
                     <Grid item>
-                      <Button type="submit" variant="contained" color="primary" size="large">Save</Button>
+                      <Button type="submit" variant="contained" color="primary" size="large"> <AddIcon/>Add</Button>
                     </Grid> <br></br>
               </form>
         </Card>
