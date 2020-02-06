@@ -14,6 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Grid } from '@material-ui/core';
 import {connect} from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,7 +42,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Events(props) {
-    console.log(props);
+
+    function editComponent() {
+        props.dispatch({type:'EDIT_POST',id: props.id});
+        props.history.push('/edit-event/' + props.id);
+    }
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   return (
@@ -58,7 +63,7 @@ function Events(props) {
                         <MoreVertIcon />
                     </IconButton>
                     }
-                    title={props.name}
+                    title={props.name ? props.name : '--'}
                     subheader={props.key}
                 />
                 <CardMedia
@@ -75,7 +80,7 @@ function Events(props) {
                     <IconButton aria-label="delete events" color="secondary" onClick={()=> props.dispatch({type:'DELETE_POST',id: props.id})}>
                         <DeleteIcon />
                     </IconButton>
-                    <IconButton aria-label="edit" color="primary">
+                    <IconButton aria-label="edit" color="primary" onClick= {editComponent}>
                         <EditIcon />
                     </IconButton>
                 </CardActions>
@@ -84,4 +89,4 @@ function Events(props) {
   );
 }
 
-export default connect()(Events);
+export default connect() (withRouter(Events));

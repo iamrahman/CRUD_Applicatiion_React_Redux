@@ -1,18 +1,12 @@
 import React, {Component} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { Container } from '@material-ui/core';
 import {connect} from 'react-redux';
-import { Redirect } from 'react-router';
 import { withRouter } from 'react-router-dom';
 
-class AddEvent extends Component {
+class EditEvent extends Component {
 
   constructor(props) {
     super(props)
@@ -22,6 +16,13 @@ class AddEvent extends Component {
         description: ''
     }
     this.inputRef = React.createRef();  // It will Create Refrence
+    const EventId = this.props.match.params.id;
+    var result = this.props.posts.find(obj => {
+        if(Number(obj.id) === Number(EventId)) {
+            return obj;
+        }
+    });
+    this.state = result;
   }
 
   nameHandler = (event) => {
@@ -44,10 +45,11 @@ class AddEvent extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.state.id = Math.floor(Math.random() * 1000000000);
+    // this.state.id = Math.floor(Math.random() * 1000000000);
     this.state.edit = false;
     const data = this.state;
-    this.props.dispatch({ type:'ADD_POST', data}); // Dispatch The Value
+    console.log(data);
+    this.props.dispatch({ type:'UPDATE_POST', data}); // Dispatch The Value
     this.props.history.push('/');
   }
 
@@ -59,7 +61,7 @@ class AddEvent extends Component {
           <Card style={ {minWidth: 390}}>
             <form onSubmit={this.handleSubmit}>
                     <Grid item lg={12}>
-                      <h3>Add Event</h3>
+                      <h3>Edit Event</h3>
                     </Grid>
                     <Grid item lg={12}>
                       <Input value={this.state.name} onChange={this.nameHandler} style={ {minWidth: 300}} placeholder="Enter Event Name"/>
@@ -81,4 +83,10 @@ class AddEvent extends Component {
   }
 }
 
-export default connect() (withRouter(AddEvent));
+const mapStateToProps = (state) => {
+    return {
+        posts: state
+    }
+}
+
+export default connect(mapStateToProps) (withRouter(EditEvent));

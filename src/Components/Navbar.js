@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AddEvent  from './AddEvent';
 import Events from './Events';
 import Grid from '@material-ui/core/Grid';
+import EditEvents from './EditEvents';
 import { connect } from 'react-redux';
 
 //import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
@@ -41,7 +42,7 @@ function Navbar(props) {
                         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
-                            Bengalore Tech Event
+                            Bangalore Tech Event
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -57,6 +58,16 @@ function Navbar(props) {
                             </Link>
                         </Grid><br></br><br></br>
                         <AddEvent />
+                    </Route>
+                    <Route path="/edit-event/:id">
+                        <Grid container justify="flex-end"><br></br>
+                            <Link to="/" className={classes.addButton}>
+                                <Button variant="contained" color="secondary">
+                                    <span>Back</span>
+                                </Button>
+                            </Link>
+                        </Grid><br></br><br></br>
+                        <EditEvents />
                     </Route>
                     <Route path="/">
                         <Grid container justify="flex-end"><br></br>
